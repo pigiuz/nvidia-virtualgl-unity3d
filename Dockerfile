@@ -6,19 +6,21 @@ FROM plumbee/nvidia-virtualgl
 
 MAINTAINER thshaw
 
-ARG PACKAGE
-ARG VIDEO_GID
-
 RUN apt-get update
 
 WORKDIR unity3d
-ADD ${PACKAGE} ${PACKAGE}
+ARG TAG="5.3.3f1+20160223"
+ARG PKG="unity-editor-${TAG}_amd64.deb"
+ARG URL="http://download.unity3d.com/download_unity/linux/${PKG}"
+
+ADD ${URL}
+#ARG VIDEO_GID
 
 #Resolve missing dependencies
-RUN dpkg -i ${PACKAGE} || apt-get -f install -y
+RUN dpkg -i ${PKG} || apt-get -f install -y
 
 #Install unity3d
-RUN dpkg -i ${PACKAGE}
+RUN dpkg -i ${PKG}
 
 # Add the gamedev user
 RUN useradd -ms /bin/bash gamedev && \
@@ -35,7 +37,7 @@ RUN chown root /opt/Unity/Editor/chrome-sandbox
 RUN chmod 4755 /opt/Unity/Editor/chrome-sandbox
 
 RUN apt-get clean
-RUN rm ${PACKAGE}
+RUN rm ${PKG}
 
 ADD  https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb /src/google-chrome-stable_current_amd64.deb
 
@@ -73,7 +75,7 @@ RUN mkdir -p /usr/share/icons/hicolor && \
 	rm -rf /var/lib/apt/lists/*
 
 # add audio support
-RUN add-apt-repository -y ppa:mc3man/trusty-media
+#RUN add-apt-repository -y ppa:mc3man/trusty-media << not needed, running on 16.04
 RUN apt-get update
 RUN apt-get install -y ffmpeg
 
