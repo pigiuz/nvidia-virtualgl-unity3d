@@ -13,7 +13,7 @@ ARG TAG="5.3.3f1+20160223"
 ARG PKG="unity-editor-${TAG}_amd64.deb"
 ARG URL="http://download.unity3d.com/download_unity/linux/${PKG}"
 
-ADD ${URL}
+ADD ${URL} ${PKG}
 #ARG VIDEO_GID
 
 #Resolve missing dependencies
