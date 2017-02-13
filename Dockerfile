@@ -22,6 +22,7 @@ RUN dpkg -i ${PACKAGE}
 
 # Add the gamedev user
 RUN useradd -ms /bin/bash gamedev && \
+    touch /etc/sudoers && \
     chmod 0660 /etc/sudoers && \
     echo "gamedev ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     chmod 0440 /etc/sudoers && \
