@@ -2,7 +2,7 @@
 #http://download.unity3d.com/download_unity/unity-editor-installer-5.1.0f3+2015082501.sh
 #http://blogs.unity3d.com/2015/08/26/unity-comes-to-linux-experimental-build-now-available/
 
-FROM ubuntu:14.04
+FROM plumbee/nvidia-virtualgl
 
 MAINTAINER thshaw
 
@@ -79,5 +79,4 @@ RUN apt-get install -y ffmpeg
 
 USER gamedev
 WORKDIR /home/gamedev
-ENV DISPLAY=:0
 ENTRYPOINT ["sudo", "/opt/Unity/Editor/Unity"]
